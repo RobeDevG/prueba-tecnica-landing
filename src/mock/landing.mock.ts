@@ -1,4 +1,4 @@
-import type { CompanyInfo, Hero, MenuItem, Product } from "@/domain/landing";
+import type { Client, CompanyInfo, Hero, MenuItem, Product } from "@/domain/landing";
 
 const mockLatency = (baseMs = 280) =>
   new Promise((resolve) => {
@@ -105,15 +105,50 @@ export async function getProductsMock(): Promise<Product[]> {
   ];
 }
 
-export async function getClientsMock(): Promise<string[]> {
+export async function getClientsMock(): Promise<Client[]> {
   await mockLatency(260);
 
   return [
-    "/images/clients/andes-fresh.png",
-    "/images/clients/valle-norte.png",
-    "/images/clients/pacific-foods.png",
-    "/images/clients/mercado-verde.png",
-    "/images/clients/export-peru.png",
+    {
+      id: "andes-fresh",
+      name: "Andes Fresh",
+      logo: "/images/clients/andes-fresh.png",
+      segment: "Retail premium",
+      location: "Lima, Perú",
+      relationship: "Cliente activo",
+    },
+    {
+      id: "valle-norte",
+      name: "Valle Norte",
+      logo: "/images/clients/valle-norte.png",
+      segment: "Distribución mayorista",
+      location: "Trujillo, Perú",
+      relationship: "Abastecimiento semanal",
+    },
+    {
+      id: "pacific-foods",
+      name: "Pacific Foods",
+      logo: "/images/clients/pacific-foods.png",
+      segment: "Food service",
+      location: "Callao, Perú",
+      relationship: "Cadena de frío",
+    },
+    {
+      id: "mercado-verde",
+      name: "Mercado Verde",
+      logo: "/images/clients/mercado-verde.png",
+      segment: "Canal orgánico",
+      location: "Arequipa, Perú",
+      relationship: "Selección por lote",
+    },
+    {
+      id: "export-peru",
+      name: "Export Peru",
+      logo: "/images/clients/export-peru.png",
+      segment: "Agroexportación",
+      location: "Ica, Perú",
+      relationship: "Calidad exportable",
+    },
   ];
 }
 

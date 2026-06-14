@@ -37,7 +37,7 @@ async function LandingContent() {
           subtitle={data.aboutUs.subtitle}
           content={data.aboutUs.content}
         />
-        <ClientsCarousel title="Nuestros Clientes" logos={data.clientLogos} />
+        <ClientsCarousel title="Nuestros Clientes" clients={data.clients} />
       </main>
       <Footer copyright={data.footer.copyright} socialLinks={data.footer.socialLinks} />
     </>

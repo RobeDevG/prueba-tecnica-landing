@@ -6,7 +6,7 @@ import { getNavigation } from "@/services/navigation.service";
 import { getProducts } from "@/services/products.service";
 
 export async function getLandingPageData(): Promise<LandingPageData> {
-  const [navigation, hero, products, clientLogos, companyInfo] = await Promise.all([
+  const [navigation, hero, products, clients, companyInfo] = await Promise.all([
     getNavigation(),
     getHero(),
     getProducts(),
@@ -19,7 +19,7 @@ export async function getLandingPageData(): Promise<LandingPageData> {
     menuItems: navigation.menuItems,
     hero,
     products,
-    clientLogos,
+    clients,
     aboutUs: companyInfo.aboutUs,
     footer: companyInfo.footer,
   };

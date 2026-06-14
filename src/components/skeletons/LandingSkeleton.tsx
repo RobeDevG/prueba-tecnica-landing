@@ -71,12 +71,13 @@ export function AboutUsSkeleton() {
 
 export function ClientsCarouselSkeleton() {
   return (
-    <section className="bg-[#f4f1e6] py-14 sm:py-16">
+    <section className="bg-[#f4f1e6] py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <SkeletonBlock className="mx-auto h-10 w-72" />
-        <div className="mt-10 flex gap-5 overflow-hidden">
+        <SkeletonBlock className="mx-auto h-5 w-48" />
+        <SkeletonBlock className="mx-auto mt-3 h-10 w-72" />
+        <div className="mt-11 flex gap-5 overflow-hidden">
           {Array.from({ length: 5 }).map((_, index) => (
-            <SkeletonBlock className="h-24 w-56 shrink-0" key={index} />
+            <SkeletonBlock className="h-28 w-[220px] shrink-0" key={index} />
           ))}
         </div>
       </div>

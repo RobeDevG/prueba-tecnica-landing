@@ -33,32 +33,33 @@ body {
   width: 100%;
 }
 
+.client-embla {
+  overflow: hidden;
+}
+
 .client-track {
-  animation: client-scroll 26s linear infinite;
   display: flex;
-  width: max-content;
+  gap: 16px;
+  padding: 4px 16px;
+  touch-action: pan-y pinch-zoom;
 }
 
-.client-marquee:hover .client-track {
-  animation-play-state: paused;
-}
-
-@keyframes client-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
+.client-card {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(21, 60, 45, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(21, 60, 45, 0.07);
+  align-items: center;
+  display: flex;
+  flex: 0 0 220px;
+  height: 108px;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .client-track {
-    animation: none;
   }
 }

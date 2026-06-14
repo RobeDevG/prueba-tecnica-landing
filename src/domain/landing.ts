@@ -38,6 +38,15 @@ export interface AboutUs {
   content: string;
 }
 
+export interface Client {
+  id: string;
+  name: string;
+  logo: string;
+  segment: string;
+  location: string;
+  relationship: string;
+}
+
 export type SocialIcon = "facebook" | "instagram" | "linkedin" | "whatsapp";
 
 export interface SocialLink {
@@ -60,6 +69,6 @@ export interface LandingPageData {
   hero: Hero;
   products: Product[];
   aboutUs: AboutUs;
-  clientLogos: string[];
+  clients: Client[];
   footer: CompanyInfo["footer"];
 }
