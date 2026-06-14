@@ -26,6 +26,7 @@ export interface ProductProperty {
 export interface Product {
   id: string;
   image: string;
+  images?: string[];
   title: string;
   subtitle: string;
   properties: ProductProperty[];

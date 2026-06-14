@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBoxOpen,
@@ -18,6 +19,7 @@ import { hexToRgba } from "@/services/palette.service";
 
 export interface ProductProps {
   image: string;
+  images?: string[];
   title: string;
   subtitle: string;
   properties: Product["properties"];
@@ -87,7 +89,8 @@ function ProductCard({
   index: number;
   even: boolean;
 }) {
-  const palette = useImagePalette(product.image);
+  const productImages = product.images?.length ? product.images : [product.image];
+  const palette = useImagePalette(productImages[0]);
   const background = hexToRgba(palette.primary, 0.08);
   const borderColor = hexToRgba(palette.primary, 0.16);
 
@@ -162,17 +165,48 @@ function ProductCard({
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.7, ease: "easeOut", delay: 0.12 }}
       >
-        <div className="relative aspect-[4/3] w-full max-w-[560px]">
+        <ProductImageCarousel images={productImages} alt={product.title} />
+      </motion.div>
+    </motion.article>
+  );
+}
+
+function ProductImageCarousel({ images, alt }: { images: string[]; alt: string }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % images.length);
+    }, 4200);
+
+    return () => window.clearInterval(intervalId);
+  }, [images.length]);
+
+  return (
+    <div className="relative aspect-[4/3] w-full max-w-[560px]">
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={images[activeIndex]}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.035 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+        >
           <Image
-            src={product.image}
-            alt={product.title}
+            src={images[activeIndex]}
+            alt={alt}
             fill
             sizes="(max-width: 768px) 90vw, 42vw"
             className="object-contain"
           />
-        </div>
-      </motion.div>
-    </motion.article>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
 

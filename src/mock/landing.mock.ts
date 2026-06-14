@@ -30,9 +30,10 @@ export async function getHeroMock(): Promise<Hero> {
     subtitle:
       "Seleccionamos productos frescos con trazabilidad, calidad de exportación y una cadena preparada para crecer contigo.",
     images: [
-      "/images/hero/seleccion-fresca.png",
-      "/images/hero/campo-exportacion.png",
-      "/images/hero/hortalizas-premium.png",
+      "/images/products/lemon-pngtree.png",
+      "/images/products/tomatoes-pngtree.png",
+      "/images/products/strawberry-pngtree.png",
+      "/images/products/asparagus-pngtree.png",
     ],
   };
 }
@@ -43,7 +44,8 @@ export async function getProductsMock(): Promise<Product[]> {
   return [
     {
       id: "limon-tahiti",
-      image: "/images/products/limon.png",
+      image: "/images/products/lemon-pngtree.png",
+      images: ["/images/products/lemon-pngtree.png"],
       title: "Limón Tahití",
       subtitle: "Cítrico de calibre uniforme para bebidas, cocina y procesos industriales.",
       properties: [
@@ -57,7 +59,8 @@ export async function getProductsMock(): Promise<Product[]> {
     },
     {
       id: "tomate-roma",
-      image: "/images/products/tomate.png",
+      image: "/images/products/tomatoes-pngtree.png",
+      images: ["/images/products/tomatoes-pngtree.png"],
       title: "Tomate Roma",
       subtitle: "Hortaliza firme y jugosa para retail, food service y producción culinaria.",
       properties: [
@@ -70,22 +73,24 @@ export async function getProductsMock(): Promise<Product[]> {
       ],
     },
     {
-      id: "mango-kent",
-      image: "/images/products/mango.png",
-      title: "Mango Kent",
-      subtitle: "Fruta tropical de pulpa aromática, baja fibra y excelente vida poscosecha.",
+      id: "fresa-premium",
+      image: "/images/products/strawberry-pngtree.png",
+      images: ["/images/products/strawberry-pngtree.png"],
+      title: "Fresa Premium",
+      subtitle: "Fruta roja de apariencia brillante para retail, repostería y food service.",
       properties: [
-        { icon: "origin", label: "Origen", value: "Piura" },
-        { icon: "season", label: "Temporada", value: "Nov. - Mar." },
-        { icon: "variety", label: "Variedad", value: "Kent" },
-        { icon: "caliber", label: "Calibre", value: "6 - 10 piezas" },
-        { icon: "flavor", label: "Sabor", value: "Dulce y floral" },
-        { icon: "presentation", label: "Presentación", value: "Caja 4 kg" },
+        { icon: "origin", label: "Origen", value: "Perú" },
+        { icon: "season", label: "Temporada", value: "Ago. - Dic." },
+        { icon: "variety", label: "Variedad", value: "Camino Real" },
+        { icon: "caliber", label: "Calibre", value: "22 - 32 mm" },
+        { icon: "flavor", label: "Sabor", value: "Dulce y aromática" },
+        { icon: "presentation", label: "Presentación", value: "Clamshell 500 g" },
       ],
     },
     {
       id: "esparrago-verde",
-      image: "/images/products/esparrago.png",
+      image: "/images/products/asparagus-pngtree.png",
+      images: ["/images/products/asparagus-pngtree.png"],
       title: "Espárrago Verde",
       subtitle: "Tallos frescos seleccionados para mercados premium y cocina profesional.",
       properties: [

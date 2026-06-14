@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     locale: "es_PE",
     images: [
       {
-        url: "/images/hero/seleccion-fresca.png",
-        width: 1600,
-        height: 940,
-        alt: "Selección fresca de productos agroindustriales",
+        url: "/images/products/lemon-pngtree.png",
+        width: 1200,
+        height: 1200,
+        alt: "Limón Tahití de AgroIndustrial Peru",
       },
     ],
   },

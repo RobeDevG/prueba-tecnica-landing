@@ -32,7 +32,7 @@ export function Hero({ title, subtitle, images }: HeroProps) {
       <AnimatePresence initial={false}>
         <motion.div
           key={images[activeIndex]}
-          className="absolute inset-0"
+          className="absolute inset-0 bg-[#eef2df]"
           initial={{ opacity: 0, scale: 1.035 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.02 }}
@@ -44,7 +44,7 @@ export function Hero({ title, subtitle, images }: HeroProps) {
             fill
             priority={activeIndex === 0}
             sizes="100vw"
-            className="object-cover"
+            className="object-contain object-right-bottom p-8 sm:p-14 lg:p-20"
           />
         </motion.div>
       </AnimatePresence>
