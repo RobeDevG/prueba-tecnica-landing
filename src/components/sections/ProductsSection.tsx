@@ -157,7 +157,7 @@ function ProductCard({
       </motion.div>
 
       <motion.div
-        className={`order-2 flex min-h-[320px] items-center justify-center p-4 sm:min-h-[420px] sm:p-8 ${
+        className={`order-2 flex min-h-80 items-center justify-center p-4 sm:min-h-105 sm:p-8 ${
           even ? "md:order-2" : "md:order-1"
         }`}
         initial={{ opacity: 0, scale: 0.96 }}
@@ -187,7 +187,7 @@ function ProductImageCarousel({ images, alt }: { images: string[]; alt: string }
   }, [images.length]);
 
   return (
-    <div className="relative aspect-[4/3] w-full max-w-[560px]">
+    <div className="relative aspect-[4/3] w-full max-w-140">
       <AnimatePresence initial={false}>
         <motion.div
           key={images[activeIndex]}

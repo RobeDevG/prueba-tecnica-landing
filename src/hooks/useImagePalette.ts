@@ -9,7 +9,7 @@ const initialPalette: ImagePalette = {
   secondary: "#b83a34",
 };
 
-export function useImagePalette(imageSrc: string) {
+export function useImagePalette(imageSrc: string): ImagePalette {
   const [palette, setPalette] = useState<ImagePalette>(initialPalette);
 
   useEffect(() => {

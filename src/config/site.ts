@@ -1,4 +1,9 @@
-export const siteConfig = {
+interface SiteConfig {
+  name: string;
+  url: string;
+}
+
+export const siteConfig: SiteConfig = {
   name: "AgroIndustrial Peru",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ??

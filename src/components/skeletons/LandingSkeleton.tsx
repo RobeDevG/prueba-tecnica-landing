@@ -45,7 +45,7 @@ export function ProductSkeleton({ even = true }: { even?: boolean }) {
           ))}
         </div>
       </div>
-      <div className={`order-2 flex min-h-[320px] items-center p-5 sm:min-h-[420px] ${even ? "md:order-2" : "md:order-1"}`}>
+      <div className={`order-2 flex min-h-80 items-center p-5 sm:min-h-105 ${even ? "md:order-2" : "md:order-1"}`}>
         <SkeletonBlock className="h-72 w-full sm:h-96" />
       </div>
     </article>
@@ -77,7 +77,7 @@ export function ClientsCarouselSkeleton() {
         <SkeletonBlock className="mx-auto mt-3 h-10 w-72" />
         <div className="mt-11 flex gap-5 overflow-hidden">
           {Array.from({ length: 5 }).map((_, index) => (
-            <SkeletonBlock className="h-28 w-[220px] shrink-0" key={index} />
+            <SkeletonBlock className="h-28 w-55 shrink-0" key={index} />
           ))}
         </div>
       </div>
