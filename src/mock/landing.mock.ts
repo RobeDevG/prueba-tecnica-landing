@@ -1,0 +1,135 @@
+import type { CompanyInfo, Hero, MenuItem, Product } from "@/domain/landing";
+
+const mockLatency = (baseMs = 280) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, baseMs);
+  });
+
+export async function getNavigationMock(): Promise<{
+  title: string;
+  menuItems: MenuItem[];
+}> {
+  await mockLatency(180);
+
+  return {
+    title: "AgroIndustrial Peru",
+    menuItems: [
+      { label: "Productos", href: "#productos" },
+      { label: "Nosotros", href: "#nosotros" },
+      { label: "Nuestros Clientes", href: "#clientes" },
+      { label: "Contacto", href: "#contacto" },
+    ],
+  };
+}
+
+export async function getHeroMock(): Promise<Hero> {
+  await mockLatency(360);
+
+  return {
+    title: "Ingredientes peruanos que inspiran",
+    subtitle:
+      "Seleccionamos productos frescos con trazabilidad, calidad de exportación y una cadena preparada para crecer contigo.",
+    images: [
+      "/images/hero/seleccion-fresca.png",
+      "/images/hero/campo-exportacion.png",
+      "/images/hero/hortalizas-premium.png",
+    ],
+  };
+}
+
+export async function getProductsMock(): Promise<Product[]> {
+  await mockLatency(420);
+
+  return [
+    {
+      id: "limon-tahiti",
+      image: "/images/products/limon.png",
+      title: "Limón Tahití",
+      subtitle: "Cítrico de calibre uniforme para bebidas, cocina y procesos industriales.",
+      properties: [
+        { icon: "origin", label: "Origen", value: "Perú" },
+        { icon: "season", label: "Temporada", value: "Todo el año" },
+        { icon: "variety", label: "Variedad", value: "Tahití" },
+        { icon: "caliber", label: "Calibre", value: "48 - 58 mm" },
+        { icon: "flavor", label: "Sabor", value: "Ácido y refrescante" },
+        { icon: "presentation", label: "Presentación", value: "Caja 10 kg" },
+      ],
+    },
+    {
+      id: "tomate-roma",
+      image: "/images/products/tomate.png",
+      title: "Tomate Roma",
+      subtitle: "Hortaliza firme y jugosa para retail, food service y producción culinaria.",
+      properties: [
+        { icon: "origin", label: "Origen", value: "Perú" },
+        { icon: "season", label: "Temporada", value: "Primavera - Otoño" },
+        { icon: "variety", label: "Variedad", value: "Roma" },
+        { icon: "caliber", label: "Calibre", value: "57 - 67 mm" },
+        { icon: "flavor", label: "Sabor", value: "Dulce y jugoso" },
+        { icon: "presentation", label: "Presentación", value: "Caja 6 kg" },
+      ],
+    },
+    {
+      id: "mango-kent",
+      image: "/images/products/mango.png",
+      title: "Mango Kent",
+      subtitle: "Fruta tropical de pulpa aromática, baja fibra y excelente vida poscosecha.",
+      properties: [
+        { icon: "origin", label: "Origen", value: "Piura" },
+        { icon: "season", label: "Temporada", value: "Nov. - Mar." },
+        { icon: "variety", label: "Variedad", value: "Kent" },
+        { icon: "caliber", label: "Calibre", value: "6 - 10 piezas" },
+        { icon: "flavor", label: "Sabor", value: "Dulce y floral" },
+        { icon: "presentation", label: "Presentación", value: "Caja 4 kg" },
+      ],
+    },
+    {
+      id: "esparrago-verde",
+      image: "/images/products/esparrago.png",
+      title: "Espárrago Verde",
+      subtitle: "Tallos frescos seleccionados para mercados premium y cocina profesional.",
+      properties: [
+        { icon: "origin", label: "Origen", value: "Ica" },
+        { icon: "season", label: "Temporada", value: "May. - Ene." },
+        { icon: "variety", label: "Variedad", value: "UC 157" },
+        { icon: "caliber", label: "Calibre", value: "12 - 16 mm" },
+        { icon: "flavor", label: "Sabor", value: "Vegetal y delicado" },
+        { icon: "presentation", label: "Presentación", value: "Atado 5 kg" },
+      ],
+    },
+  ];
+}
+
+export async function getClientsMock(): Promise<string[]> {
+  await mockLatency(260);
+
+  return [
+    "/images/clients/andes-fresh.png",
+    "/images/clients/valle-norte.png",
+    "/images/clients/pacific-foods.png",
+    "/images/clients/mercado-verde.png",
+    "/images/clients/export-peru.png",
+  ];
+}
+
+export async function getCompanyInfoMock(): Promise<CompanyInfo> {
+  await mockLatency(320);
+
+  return {
+    aboutUs: {
+      title: "Quiénes somos",
+      subtitle: "Conectamos el campo peruano con compradores que exigen consistencia.",
+      content:
+        "AgroIndustrial Peru integra selección, empaque y despacho de frutas y hortalizas frescas. Trabajamos con productores certificados, control de calidad por lote y procesos pensados para una futura integración con sistemas de trazabilidad, inventario y pedidos.",
+    },
+    footer: {
+      copyright: "© 2026 AgroIndustrial Peru. Todos los derechos reservados.",
+      socialLinks: [
+        { icon: "facebook", label: "Facebook", href: "https://facebook.com" },
+        { icon: "instagram", label: "Instagram", href: "https://instagram.com" },
+        { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
+        { icon: "whatsapp", label: "WhatsApp", href: "https://wa.me/51999999999" },
+      ],
+    },
+  };
+}
