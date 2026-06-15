@@ -18,6 +18,7 @@ export function ExtraImage({ src, alt, onOpen }: ExtraImageProps) {
       type="button"
       onClick={() => onOpen(src)}
       className="overflow-hidden rounded-xl border border-[#153c2d]/10 bg-white/70"
+      aria-label={`Abrir imagen extra de ${alt}`}
     >
       <div className="relative aspect-4/3 w-full">
         {!isLoaded ? (

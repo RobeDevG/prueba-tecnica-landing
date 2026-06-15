@@ -1,21 +1,13 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faBoxOpen,
-	faCalendarDays,
-	faDroplet,
-	faLocationDot,
-	faRulerCombined,
-	faSeedling,
-} from "@fortawesome/free-solid-svg-icons";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import type { Product, ProductPropertyIcon } from "@/domain/landing";
+import type { Product } from "@/domain/landing";
 import { useImagePalette } from "@/hooks/useImagePalette";
 import { hexToRgba } from "@/services/palette.service";
 import { ProductActions } from "./actions/Actions";
+import { ProductCardHeader } from "./ProductCardHeader";
 import { ProductImageCarousel } from "./ProductImageCarousel";
+import { ProductPropertyList } from "./ProductPropertyList";
 
 export interface ProductCardProps {
 	product: Product;
@@ -23,15 +15,6 @@ export interface ProductCardProps {
 	even: boolean;
 	whatsappUrl: string;
 }
-
-const propertyIcons: Record<ProductPropertyIcon, IconDefinition> = {
-	origin: faLocationDot,
-	season: faCalendarDays,
-	variety: faSeedling,
-	caliber: faRulerCombined,
-	flavor: faDroplet,
-	presentation: faBoxOpen,
-};
 
 export function ProductCard({ product, index, even, whatsappUrl }: ProductCardProps) {
 	const productImages = product.images?.length ? product.images : [product.image];
@@ -61,47 +44,22 @@ export function ProductCard({ product, index, even, whatsappUrl }: ProductCardPr
 					visible: { transition: { staggerChildren: 0.08 } },
 				}}
 			>
-				<motion.span
-					className="text-sm font-black uppercase tracking-[0.16em]"
-					style={{ color: palette.secondary }}
-					variants={fadeSlideVariant}
-				>
-					{String(index + 1).padStart(2, "0")} · {product.subtitle.split(" ")[0]}
-				</motion.span>
-				<motion.h3
+				<ProductCardHeader
 					id={`${product.id}-title`}
-					className="mt-4 text-4xl font-black leading-tight text-[#153c2d] sm:text-5xl"
+					index={index}
+					title={product.title}
+					subtitle={product.subtitle}
+					accentColor={palette.secondary}
 					variants={fadeSlideVariant}
-				>
-					{product.title}
-				</motion.h3>
-				<motion.p
-					className="mt-4 max-w-xl text-base leading-7 text-[#486052]"
-					variants={fadeSlideVariant}
-				>
-					{product.subtitle}
-				</motion.p>
-				<motion.dl className="mt-7 divide-y" style={{ borderColor }} variants={fadeSlideVariant}>
-					{product.properties.map((property) => (
-						<div
-							className="grid grid-cols-[28px_1fr] gap-x-4 py-3 sm:grid-cols-[30px_1fr_1fr]"
-							key={`${product.id}-${property.label}`}
-						>
-							<dt className="contents">
-								<FontAwesomeIcon
-									icon={propertyIcons[property.icon]}
-									className="mt-1 h-4 w-4"
-									style={{ color: palette.secondary }}
-									aria-hidden
-								/>
-								<span className="text-sm font-bold text-[#314a3d]">{property.label}</span>
-							</dt>
-							<dd className="col-start-2 text-sm font-semibold text-[#1d3429] sm:col-start-3">
-								{property.value}
-							</dd>
-						</div>
-					))}
-				</motion.dl>
+				/>
+				<motion.div variants={fadeSlideVariant}>
+					<ProductPropertyList
+						idPrefix={product.id}
+						items={product.properties}
+						iconColor={palette.secondary}
+						borderColor={borderColor}
+					/>
+				</motion.div>
 				<ProductActions
 					product={product}
 					whatsappUrl={whatsappUrl}

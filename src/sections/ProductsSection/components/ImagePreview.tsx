@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ImageSkeleton } from "@/components/skeletons/ImageSkeleton";
 import { useImageLoadState } from "@/hooks/useImageLoadState";
 
@@ -16,8 +16,11 @@ export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
   const { isLoaded, markAsLoaded } = useImageLoadState();
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4">
-      <div className="relative max-h-[90svh] w-full max-w-5xl">
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4"
+      onClick={onClose}
+    >
+      <div className="relative max-h-[90svh] w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
         <button
           type="button"
           onClick={onClose}
@@ -27,7 +30,11 @@ export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
           <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
         </button>
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-white">
-          {!isLoaded ? <div className="absolute inset-0 p-4"><ImageSkeleton className="h-full" /></div> : null}
+          {!isLoaded ? (
+            <div className="absolute inset-0 p-4">
+              <ImageSkeleton className="h-full" />
+            </div>
+          ) : null}
           <Image
             src={src}
             alt={alt}

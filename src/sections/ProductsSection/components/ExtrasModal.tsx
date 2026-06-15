@@ -1,23 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { Product, ProductPropertyIcon } from "@/domain/landing";
-import { ExtraImage } from "./ExtraImage";
-import { ImagePreview } from "./actions/ImagePreview";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import type { Product } from "@/domain/landing";
 import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
 import { useEscapeKey } from "@/hooks/useEscapeKey";
-import {
-  faBoxOpen,
-  faCalendarDays,
-  faDroplet,
-  faLocationDot,
-  faRulerCombined,
-  faSeedling,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { ExtraImage } from "./ExtraImage";
+import { ImagePreview } from "./ImagePreview";
+import { ProductPropertyList } from "./ProductPropertyList";
 
 export interface ExtrasModalProps {
   product: Product;
@@ -26,15 +18,6 @@ export interface ExtrasModalProps {
   extras: NonNullable<Product["extras"]>;
   onClose: () => void;
 }
-
-const propertyIcons: Record<ProductPropertyIcon, IconDefinition> = {
-  origin: faLocationDot,
-  season: faCalendarDays,
-  variety: faSeedling,
-  caliber: faRulerCombined,
-  flavor: faDroplet,
-  presentation: faBoxOpen,
-};
 
 const backdropVariants: Variants = {
   hidden: { opacity: 0 },
@@ -48,12 +31,19 @@ const panelVariants: Variants = {
   exit: { opacity: 0, y: 36, scale: 0.98 },
 };
 
-export function ExtrasModal({ product, palettePrimary, borderColor, extras, onClose }: ExtrasModalProps) {
-  const extraImages = extras.images?.length ? extras.images : [];
+export function ExtrasModal({
+  product,
+  palettePrimary,
+  borderColor,
+  extras,
+  onClose,
+}: ExtrasModalProps) {
+  const extraImages = extras.images ?? [];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const closePreview = useCallback(() => setSelectedImage(null), []);
 
   useBodyScrollLock(true);
-  useEscapeKey(onClose);
+  useEscapeKey(selectedImage ? closePreview : onClose);
 
   return (
     <motion.div
@@ -91,27 +81,14 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
           <h4 id={`${product.id}-extras-title`} className="pr-12 text-2xl font-black text-[#153c2d]">
             Extras de {product.title}
           </h4>
-          <dl className="mt-6 divide-y" style={{ borderColor }}>
-            {extras.items.map((item) => (
-              <div
-                key={`${product.id}-${item.label}`}
-                className="grid grid-cols-[28px_1fr] gap-x-4 py-3 sm:grid-cols-[30px_1fr_1fr]"
-              >
-                <dt className="contents">
-                  <FontAwesomeIcon
-                    icon={propertyIcons[item.icon]}
-                    className="mt-1 h-4 w-4"
-                    style={{ color: palettePrimary }}
-                    aria-hidden
-                  />
-                  <span className="text-sm font-bold text-[#314a3d]">{item.label}</span>
-                </dt>
-                <dd className="col-start-2 text-sm font-semibold text-[#1d3429] sm:col-start-3">
-                  {item.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+
+          <ProductPropertyList
+            idPrefix={`${product.id}-extras`}
+            items={extras.items}
+            iconColor={palettePrimary}
+            borderColor={borderColor}
+            className="mt-6"
+          />
 
           <div className="mt-7">
             {extraImages.length === 0 ? (
@@ -119,14 +96,19 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
             ) : (
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {extraImages.map((image, index) => (
-                  <ExtraImage key={`${image}-${index}`} src={image} alt={product.title} onOpen={setSelectedImage} />
+                  <ExtraImage
+                    key={`${image}-${index}`}
+                    src={image}
+                    alt={product.title}
+                    onOpen={setSelectedImage}
+                  />
                 ))}
               </div>
             )}
           </div>
         </div>
 
-        {selectedImage ? <ImagePreview src={selectedImage} alt={product.title} onClose={() => setSelectedImage(null)} /> : null}
+        {selectedImage ? <ImagePreview src={selectedImage} alt={product.title} onClose={closePreview} /> : null}
       </motion.div>
     </motion.div>
   );
