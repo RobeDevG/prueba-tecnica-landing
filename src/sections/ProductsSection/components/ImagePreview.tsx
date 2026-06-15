@@ -17,7 +17,7 @@ export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4"
+      className="fixed inset-0 z-80 flex items-center justify-center bg-black/70 p-4"
       onClick={onClose}
     >
       <div className="relative max-h-[90svh] w-full max-w-5xl" onClick={(event) => event.stopPropagation()}>
@@ -29,7 +29,7 @@ export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
         >
           <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
         </button>
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-white">
+        <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl bg-white">
           {!isLoaded ? (
             <div className="absolute inset-0 p-4">
               <ImageSkeleton className="h-full" />
