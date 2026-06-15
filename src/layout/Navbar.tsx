@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import type { MenuItem } from "@/domain/landing";
+import { useDisclosure } from "@/hooks/useDisclosure";
 
 export interface NavbarProps {
   title: string;
@@ -15,7 +15,7 @@ export interface NavbarProps {
 }
 
 export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const mobileMenu = useDisclosure();
   const words = title.split(" ");
   const country = words.pop();
   const brand = words.join(" ");
@@ -27,7 +27,7 @@ export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
           <a
             className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-[#244334] transition hover:text-[#b93838] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
             href={item.href}
-            onClick={() => setIsOpen(false)}
+            onClick={mobileMenu.close}
           >
             {item.label}
           </a>
@@ -71,7 +71,7 @@ export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
         <div className="md:hidden">
           <IconButton
             aria-label="Abrir menú"
-            onClick={() => setIsOpen(true)}
+            onClick={mobileMenu.open}
             sx={{
               color: "#153c2d",
               border: "1px solid rgba(21, 60, 45, 0.18)",
@@ -87,8 +87,8 @@ export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
 
       <Drawer
         anchor="right"
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
+        open={mobileMenu.isOpen}
+        onClose={mobileMenu.close}
         PaperProps={{
           sx: {
             width: 308,
@@ -105,7 +105,7 @@ export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
           </span>
           <IconButton
             aria-label="Cerrar menú"
-            onClick={() => setIsOpen(false)}
+            onClick={mobileMenu.close}
             sx={{ color: "#153c2d", borderRadius: "8px" }}
           >
             <FontAwesomeIcon icon={faXmark} className="h-5 w-5" />

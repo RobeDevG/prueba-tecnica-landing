@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { ImageSkeleton } from "@/components/skeletons/ImageSkeleton";
+import { useImageLoadState } from "@/hooks/useImageLoadState";
 
 export interface ExtraImageProps {
   src: string;
@@ -11,7 +11,7 @@ export interface ExtraImageProps {
 }
 
 export function ExtraImage({ src, alt, onOpen }: ExtraImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { isLoaded, markAsLoaded } = useImageLoadState();
 
   return (
     <button
@@ -31,7 +31,7 @@ export function ExtraImage({ src, alt, onOpen }: ExtraImageProps) {
           fill
           sizes="(max-width: 640px) 92vw, (max-width: 1024px) 45vw, 30vw"
           className={`object-contain p-3 transition ${isLoaded ? "opacity-100" : "opacity-0"}`}
-          onLoad={() => setIsLoaded(true)}
+          onLoad={markAsLoaded}
         />
       </div>
     </button>

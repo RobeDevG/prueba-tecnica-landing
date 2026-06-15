@@ -34,7 +34,7 @@ export function HeroSkeleton() {
 
 export function ProductSkeleton({ even = true }: { even?: boolean }) {
   return (
-    <article className="grid overflow-hidden rounded-lg border border-[#153c2d]/10 bg-[#2f6b4f]/[0.06] md:grid-cols-2">
+    <article className="grid overflow-hidden rounded-lg border border-[#153c2d]/10 bg-[#2f6b4f]/6 md:grid-cols-2">
       <div className={`order-1 px-5 py-8 sm:px-8 lg:px-12 ${even ? "md:order-1" : "md:order-2"}`}>
         <SkeletonBlock className="h-5 w-28" />
         <SkeletonBlock className="mt-5 h-12 w-64" />

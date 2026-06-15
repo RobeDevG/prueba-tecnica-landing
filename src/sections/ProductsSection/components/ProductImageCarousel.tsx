@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ImageSkeleton } from "@/components/skeletons/ImageSkeleton";
+import { useAutoplayIndex } from "@/hooks/useAutoplayIndex";
+import { useImageLoadState } from "@/hooks/useImageLoadState";
 
 export interface ProductImageCarouselProps {
   images: string[];
@@ -11,19 +12,7 @@ export interface ProductImageCarouselProps {
 }
 
 export function ProductImageCarousel({ images, alt }: ProductImageCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    if (images.length < 2) {
-      return;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((index) => (index + 1) % images.length);
-    }, 4200);
-
-    return () => window.clearInterval(intervalId);
-  }, [images.length]);
+  const activeIndex = useAutoplayIndex(images.length, 4200);
 
   return (
     <div className="relative aspect-4/3 w-full max-w-140">
@@ -35,7 +24,7 @@ export function ProductImageCarousel({ images, alt }: ProductImageCarouselProps)
 }
 
 function ProductImageSlide({ src, alt }: { src: string; alt: string }) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { isLoaded, markAsLoaded } = useImageLoadState();
 
   return (
     <motion.div
@@ -56,7 +45,7 @@ function ProductImageSlide({ src, alt }: { src: string; alt: string }) {
         fill
         sizes="(max-width: 768px) 90vw, 42vw"
         className="object-contain"
-        onLoad={() => setIsLoaded(true)}
+        onLoad={markAsLoaded}
       />
     </motion.div>
   );

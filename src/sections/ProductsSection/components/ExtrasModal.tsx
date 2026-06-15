@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { motion, type Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Product, ProductPropertyIcon } from "@/domain/landing";
 import { ExtraImage } from "./ExtraImage";
 import { ImagePreview } from "./actions/ImagePreview";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import { useEscapeKey } from "@/hooks/useEscapeKey";
 import {
   faBoxOpen,
   faCalendarDays,
@@ -33,25 +36,47 @@ const propertyIcons: Record<ProductPropertyIcon, IconDefinition> = {
   presentation: faBoxOpen,
 };
 
+const backdropVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
+const panelVariants: Variants = {
+  hidden: { opacity: 0, y: 56, scale: 0.98 },
+  visible: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: 36, scale: 0.98 },
+};
+
 export function ExtrasModal({ product, palettePrimary, borderColor, extras, onClose }: ExtrasModalProps) {
   const extraImages = extras.images?.length ? extras.images : [];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, []);
+  useBodyScrollLock(true);
+  useEscapeKey(onClose);
 
   return (
-    <div className="fixed inset-0 z-70 flex items-end justify-center bg-black/40 px-0 py-0 sm:items-center sm:px-5 sm:py-6" onClick={onClose}>
-      <div
+    <motion.div
+      className="fixed inset-0 z-70 flex items-end justify-center bg-black/40 px-0 py-0 sm:items-center sm:px-5 sm:py-6"
+      onClick={onClose}
+      variants={backdropVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      transition={{ duration: 0.22, ease: "easeOut" }}
+    >
+      <motion.div
         className="relative flex max-h-[calc(100svh-1.5rem)] w-full max-w-4xl flex-col overflow-hidden overscroll-contain rounded-t-2xl p-5 shadow-2xl sm:max-h-[88svh] sm:rounded-2xl sm:p-7"
         style={{ borderColor, backgroundColor: "#fbfaf3" }}
         onClick={(event) => event.stopPropagation()}
+        variants={panelVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${product.id}-extras-title`}
       >
         <button
           type="button"
@@ -63,7 +88,9 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
         </button>
 
         <div className="flex-1 overflow-y-auto pr-1 pt-4">
-          <h4 className="pr-12 text-2xl font-black text-[#153c2d]">Extras de {product.title}</h4>
+          <h4 id={`${product.id}-extras-title`} className="pr-12 text-2xl font-black text-[#153c2d]">
+            Extras de {product.title}
+          </h4>
           <dl className="mt-6 divide-y" style={{ borderColor }}>
             {extras.items.map((item) => (
               <div
@@ -100,7 +127,7 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
         </div>
 
         {selectedImage ? <ImagePreview src={selectedImage} alt={product.title} onClose={() => setSelectedImage(null)} /> : null}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

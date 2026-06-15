@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { ImageSkeleton } from "@/components/skeletons/ImageSkeleton";
+import { useImageLoadState } from "@/hooks/useImageLoadState";
 
 export interface ImagePreviewProps {
   src: string;
@@ -13,7 +13,7 @@ export interface ImagePreviewProps {
 }
 
 export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { isLoaded, markAsLoaded } = useImageLoadState();
 
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4">
@@ -34,7 +34,7 @@ export function ImagePreview({ src, alt, onClose }: ImagePreviewProps) {
             fill
             sizes="(max-width: 640px) 92vw, 60vw"
             className="object-contain p-4"
-            onLoad={() => setIsLoaded(true)}
+            onLoad={markAsLoaded}
           />
         </div>
       </div>

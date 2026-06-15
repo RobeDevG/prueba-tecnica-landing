@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { useState } from "react";
 import { ImageSkeleton } from "@/components/skeletons/ImageSkeleton";
 import type { Client } from "@/domain/landing";
+import { useImageLoadState } from "@/hooks/useImageLoadState";
 
 export interface ClientCardProps {
   client: Client;
@@ -9,7 +9,7 @@ export interface ClientCardProps {
 }
 
 export function ClientCard({ client, isDuplicate }: ClientCardProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { isLoaded, markAsLoaded } = useImageLoadState();
 
   return (
     <article className="client-card" aria-hidden={isDuplicate}>
@@ -21,7 +21,7 @@ export function ClientCard({ client, isDuplicate }: ClientCardProps) {
           width={210}
           height={80}
           className={`max-h-14 w-auto object-contain transition ${isLoaded ? "opacity-100" : "opacity-0"}`}
-          onLoad={() => setIsLoaded(true)}
+          onLoad={markAsLoaded}
         />
       </div>
     </article>
