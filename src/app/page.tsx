@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import { AboutUs } from "@/components/sections/AboutUs";
-import { ClientsCarousel } from "@/components/sections/ClientsCarousel";
-import { Hero } from "@/components/sections/Hero";
-import { ProductsSection } from "@/components/sections/ProductsSection";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
+import { AboutUs } from "@/sections/AboutUS/AboutUs";
+import { ClientsCarousel } from "@/sections/ClientsCarousel/ClientsCarousel";
+import { Hero } from "@/sections/Hero/Hero";
+import { ProductsSection } from "@/sections/ProductsSection/ProductsSection";
+import { Footer } from "@/layout/Footer";
+import { Navbar } from "@/layout/Navbar";
 import { LandingSkeleton } from "@/components/skeletons/LandingSkeleton";
 import { siteConfig } from "@/config/site";
 import type { LandingPageData } from "@/domain/landing";

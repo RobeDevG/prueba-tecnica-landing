@@ -1,10 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import type { Client } from "@/domain/landing";
+import { ClientCard } from "./components/ClientCard";
+import { SectionHeading } from "@/components/sections/SectionHeading";
 
 export interface ClientsCarouselProps {
   title: string;
@@ -48,17 +49,14 @@ export function ClientsCarousel({ title, clients }: ClientsCarouselProps) {
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.16em] text-[#b93838]">
-            Aliados comerciales
-          </span>
-          <h2
-            id="clientes-title"
-            className="mt-3 text-3xl font-black leading-tight text-[#153c2d] sm:text-4xl"
-          >
-            {title}
-          </h2>
-        </div>
+        <SectionHeading
+          align="center"
+          className="mx-auto max-w-2xl"
+          id="clientes-title"
+          eyebrow="Aliados comerciales"
+          title={title}
+          titleClassName="sm:text-4xl"
+        />
       </div>
 
       <div className="client-marquee mt-11" aria-label="Cinco clientes destacados">
@@ -67,21 +65,7 @@ export function ClientsCarousel({ title, clients }: ClientsCarouselProps) {
             {loopClients.map((client, index) => {
               const isDuplicate = index >= visibleClients.length;
 
-              return (
-                <article
-                  className="client-card"
-                  key={`${client.id}-${index}`}
-                  aria-hidden={isDuplicate}
-                >
-                  <Image
-                    src={client.logo}
-                    alt={isDuplicate ? "" : client.name}
-                    width={210}
-                    height={80}
-                    className="max-h-14 w-auto object-contain"
-                  />
-                </article>
-              );
+              return <ClientCard client={client} isDuplicate={isDuplicate} key={`${client.id}-${index}`} />;
             })}
           </div>
         </div>
