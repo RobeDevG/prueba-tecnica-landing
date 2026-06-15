@@ -16,11 +16,13 @@ import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import type { Product, ProductPropertyIcon } from "@/domain/landing";
 import { useImagePalette } from "@/hooks/useImagePalette";
 import { hexToRgba } from "@/services/palette.service";
+import { ProductActions } from "./actions/Actions";
 
 export interface ProductCardProps {
 	product: Product;
 	index: number;
 	even: boolean;
+	whatsappUrl: string;
 }
 
 const propertyIcons: Record<ProductPropertyIcon, IconDefinition> = {
@@ -32,11 +34,13 @@ const propertyIcons: Record<ProductPropertyIcon, IconDefinition> = {
 	presentation: faBoxOpen,
 };
 
-export function ProductCard({ product, index, even }: ProductCardProps) {
+export function ProductCard({ product, index, even, whatsappUrl }: ProductCardProps) {
 	const productImages = product.images?.length ? product.images : [product.image];
 	const palette = useImagePalette(productImages[0]);
 	const background = hexToRgba(palette.primary, 0.08);
 	const borderColor = hexToRgba(palette.primary, 0.16);
+	const detailsUrl = product.detailsUrl ?? "#";
+	const extras = product.extras;
 
 	return (
 		<motion.article
@@ -49,7 +53,7 @@ export function ProductCard({ product, index, even }: ProductCardProps) {
 			aria-labelledby={`${product.id}-title`}
 		>
 			<motion.div
-				className={`order-1 flex flex-col justify-center px-5 py-8 sm:px-8 lg:px-12 ${
+				className={`order-2 flex flex-col justify-center px-5 py-8 sm:px-8 lg:px-12 ${
 					even ? "md:order-1" : "md:order-2"
 				}`}
 				initial="hidden"
@@ -101,10 +105,16 @@ export function ProductCard({ product, index, even }: ProductCardProps) {
 						</div>
 					))}
 				</motion.dl>
+				<ProductActions
+					product={product}
+					whatsappUrl={whatsappUrl}
+					palettePrimary={palette.primary}
+					borderColor={borderColor}
+				/>
 			</motion.div>
 
 			<motion.div
-				className={`order-2 flex min-h-80 items-center justify-center p-4 sm:min-h-105 sm:p-8 ${
+				className={`order-1 flex min-h-80 items-center justify-center p-4 sm:min-h-105 sm:p-8 ${
 					even ? "md:order-2" : "md:order-1"
 				}`}
 				initial={{ opacity: 0, scale: 0.96 }}

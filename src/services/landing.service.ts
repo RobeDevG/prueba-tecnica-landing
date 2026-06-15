@@ -1,4 +1,5 @@
 import type { LandingPageData } from "@/domain/landing";
+import { siteConfig } from "@/config/site";
 import { getClients } from "@/services/clients.service";
 import { getCompanyInfo } from "@/services/company.service";
 import { getHero } from "@/services/hero.service";
@@ -17,6 +18,7 @@ export async function getLandingPageData(): Promise<LandingPageData> {
   return {
     navbarTitle: navigation.title,
     menuItems: navigation.menuItems,
+    whatsappUrl: siteConfig.whatsappUrl,
     hero,
     products,
     clients,

@@ -5,14 +5,16 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import type { MenuItem } from "@/domain/landing";
 
 export interface NavbarProps {
   title: string;
   menuItems: MenuItem[];
+  whatsappUrl: string;
 }
 
-export function Navbar({ title, menuItems }: NavbarProps) {
+export function Navbar({ title, menuItems, whatsappUrl }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const words = title.split(" ");
   const country = words.pop();
@@ -23,7 +25,7 @@ export function Navbar({ title, menuItems }: NavbarProps) {
       {menuItems.map((item) => (
         <li key={item.href}>
           <a
-            className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-[#244334] transition hover:text-[#b93838] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b93838]"
+            className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-semibold text-[#244334] transition hover:text-[#b93838] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
             href={item.href}
             onClick={() => setIsOpen(false)}
           >
@@ -34,6 +36,18 @@ export function Navbar({ title, menuItems }: NavbarProps) {
     </ul>
   );
 
+  const whatsappButton = (
+    <a
+      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-[#25d366] px-4 text-sm font-semibold text-white transition hover:bg-[#1fb158] focus-visible:ring-2 focus-visible:ring-[#25d366] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
+      href={whatsappUrl}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <FontAwesomeIcon icon={faWhatsapp} className="h-4 w-4" />
+      WhatsApp
+    </a>
+  );
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[#173c2d]/10 bg-[#fbfaf3]/88 backdrop-blur-xl">
       <nav
@@ -41,7 +55,7 @@ export function Navbar({ title, menuItems }: NavbarProps) {
         className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10"
       >
         <a
-          className="rounded-md text-xl font-black tracking-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b93838] sm:text-2xl"
+          className="rounded-md text-xl font-black tracking-normal focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3] sm:text-2xl"
           href="#inicio"
           aria-label="AgroIndustrial Peru, volver al inicio"
         >
@@ -49,7 +63,10 @@ export function Navbar({ title, menuItems }: NavbarProps) {
           <span className="text-[#c43535]">{country}</span>
         </a>
 
-        <div className="hidden md:block">{menu}</div>
+        <div className="hidden items-center gap-4 md:flex">
+          {menu}
+          {whatsappButton}
+        </div>
 
         <div className="md:hidden">
           <IconButton
@@ -95,6 +112,7 @@ export function Navbar({ title, menuItems }: NavbarProps) {
           </IconButton>
         </div>
         {menu}
+        <div className="mt-6">{whatsappButton}</div>
       </Drawer>
     </header>
   );

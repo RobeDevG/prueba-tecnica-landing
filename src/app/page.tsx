@@ -28,10 +28,15 @@ async function LandingContent() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <Navbar title={data.navbarTitle} menuItems={data.menuItems} />
+      <Navbar title={data.navbarTitle} menuItems={data.menuItems} whatsappUrl={data.whatsappUrl} />
       <main>
-        <Hero title={data.hero.title} subtitle={data.hero.subtitle} images={data.hero.images} />
-        <ProductsSection products={data.products} />
+        <Hero
+          title={data.hero.title}
+          subtitle={data.hero.subtitle}
+          images={data.hero.images}
+          whatsappUrl={data.whatsappUrl}
+        />
+        <ProductsSection products={data.products} whatsappUrl={data.whatsappUrl} />
         <AboutUs
           title={data.aboutUs.title}
           subtitle={data.aboutUs.subtitle}

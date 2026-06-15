@@ -23,10 +23,17 @@ export interface ProductProperty {
   value: string;
 }
 
+export interface ProductExtras {
+  items: ProductProperty[];
+  images?: string[];
+}
+
 export interface Product {
   id: string;
   image: string;
   images?: string[];
+  detailsUrl?: string;
+  extras?: ProductExtras;
   title: string;
   subtitle: string;
   properties: ProductProperty[];
@@ -66,6 +73,7 @@ export interface CompanyInfo {
 export interface LandingPageData {
   menuItems: MenuItem[];
   navbarTitle: string;
+  whatsappUrl: string;
   hero: Hero;
   products: Product[];
   aboutUs: AboutUs;

@@ -7,9 +7,10 @@ import { SectionHeading } from "@/components/sections/SectionHeading";
 
 export interface ProductsSectionProps {
   products: Product[];
+  whatsappUrl: string;
 }
 
-export function ProductsSection({ products }: ProductsSectionProps) {
+export function ProductsSection({ products, whatsappUrl }: ProductsSectionProps) {
   return (
     <section
       id="productos"
@@ -38,6 +39,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
               product={product}
               index={index}
               even={index % 2 === 0}
+              whatsappUrl={whatsappUrl}
             />
           ))}
         </div>

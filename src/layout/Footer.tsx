@@ -21,16 +21,18 @@ const socialIcons: Record<SocialIcon, IconDefinition> = {
 };
 
 export function Footer({ copyright, socialLinks }: FooterProps) {
+  const visibleLinks = socialLinks.filter((link) => Boolean(link.href));
+
   return (
     <footer id="contacto" className="bg-[#153c2d] px-5 py-10 text-white sm:px-8 lg:px-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 sm:flex-row">
         <p className="text-center text-sm text-white/74 sm:text-left">{copyright}</p>
         <nav aria-label="Redes sociales">
           <ul className="flex items-center gap-3">
-            {socialLinks.map((link) => (
+            {visibleLinks.map((link) => (
               <li key={link.icon}>
                 <a
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/16 text-white transition hover:border-white/35 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/16 text-white transition hover:border-white/35 hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#153c2d]"
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"

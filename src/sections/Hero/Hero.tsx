@@ -2,16 +2,18 @@
 
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faLeaf } from "@fortawesome/free-solid-svg-icons";
+import { faLeaf } from "@fortawesome/free-solid-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { HeroBackgroundCarousel } from "./components/HeroBackgroundCarousel";
 
 export interface HeroProps {
   title: string;
   subtitle: string;
   images: string[];
+  whatsappUrl: string;
 }
 
-export function Hero({ title, subtitle, images }: HeroProps) {
+export function Hero({ title, subtitle, images, whatsappUrl }: HeroProps) {
   return (
     <section
       id="inicio"
@@ -45,11 +47,13 @@ export function Hero({ title, subtitle, images }: HeroProps) {
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#productos"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-[#153c2d] px-6 text-sm font-bold text-white shadow-lg shadow-[#153c2d]/14 transition hover:bg-[#214f3d] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
             >
-              <FontAwesomeIcon icon={faArrowDown} className="h-4 w-4" />
-              Ver productos
+              <FontAwesomeIcon icon={faWhatsapp} className="h-4 w-4" />
+              Contactar
             </a>
             <a
               href="#contacto"

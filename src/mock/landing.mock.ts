@@ -1,4 +1,5 @@
 import type { Client, CompanyInfo, Hero, MenuItem, Product } from "@/domain/landing";
+import { siteConfig } from "@/config/site";
 
 const mockLatency = (baseMs = 280) =>
   new Promise((resolve) => {
@@ -46,6 +47,14 @@ export async function getProductsMock(): Promise<Product[]> {
       id: "limon-tahiti",
       image: "/images/products/lemon-pngtree.png",
       images: ["/images/products/lemon-pngtree.png"],
+      detailsUrl: "https://example.com/productos/limon-tahiti",
+      extras: {
+        items: [
+          { icon: "origin", label: "Origen", value: "Perú" },
+          { icon: "presentation", label: "Packing", value: "Caja exportación" },
+        ],
+        images: ["/images/products/lemon-pngtree.png"],
+      },
       title: "Limón Tahití",
       subtitle: "Cítrico de calibre uniforme para bebidas, cocina y procesos industriales.",
       properties: [
@@ -61,6 +70,14 @@ export async function getProductsMock(): Promise<Product[]> {
       id: "tomate-roma",
       image: "/images/products/tomatoes-pngtree.png",
       images: ["/images/products/tomatoes-pngtree.png"],
+      detailsUrl: "https://example.com/productos/tomate-roma",
+      extras: {
+        items: [
+          { icon: "origin", label: "Origen", value: "Perú" },
+          { icon: "presentation", label: "Packing", value: "Caja 6 kg" },
+        ],
+        images: ["/images/products/tomatoes-pngtree.png"],
+      },
       title: "Tomate Roma",
       subtitle: "Hortaliza firme y jugosa para retail, food service y producción culinaria.",
       properties: [
@@ -76,6 +93,14 @@ export async function getProductsMock(): Promise<Product[]> {
       id: "fresa-premium",
       image: "/images/products/strawberry-pngtree.png",
       images: ["/images/products/strawberry-pngtree.png"],
+      detailsUrl: "https://example.com/productos/fresa-premium",
+      extras: {
+        items: [
+          { icon: "origin", label: "Origen", value: "Perú" },
+          { icon: "presentation", label: "Packing", value: "Clamshell 500 g" },
+        ],
+        images: ["/images/products/strawberry-pngtree.png"],
+      },
       title: "Fresa Premium",
       subtitle: "Fruta roja de apariencia brillante para retail, repostería y food service.",
       properties: [
@@ -91,6 +116,14 @@ export async function getProductsMock(): Promise<Product[]> {
       id: "esparrago-verde",
       image: "/images/products/asparagus-pngtree.png",
       images: ["/images/products/asparagus-pngtree.png"],
+      detailsUrl: "https://example.com/productos/esparrago-verde",
+      extras: {
+        items: [
+          { icon: "origin", label: "Origen", value: "Ica" },
+          { icon: "presentation", label: "Packing", value: "Atado 5 kg" },
+        ],
+        images: ["/images/products/asparagus-pngtree.png"],
+      },
       title: "Espárrago Verde",
       subtitle: "Tallos frescos seleccionados para mercados premium y cocina profesional.",
       properties: [
@@ -168,7 +201,7 @@ export async function getCompanyInfoMock(): Promise<CompanyInfo> {
         { icon: "facebook", label: "Facebook", href: "https://facebook.com" },
         { icon: "instagram", label: "Instagram", href: "https://instagram.com" },
         { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com" },
-        { icon: "whatsapp", label: "WhatsApp", href: "https://wa.me/51999999999" },
+        { icon: "whatsapp", label: "WhatsApp", href: siteConfig.whatsappUrl },
       ],
     },
   };
