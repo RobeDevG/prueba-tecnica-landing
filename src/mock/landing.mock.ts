@@ -53,7 +53,7 @@ export async function getProductsMock(): Promise<Product[]> {
           { icon: "origin", label: "Origen", value: "Perú" },
           { icon: "presentation", label: "Packing", value: "Caja exportación" },
         ],
-        images: ["/images/products/lemon-pngtree.png", "/images/products/strawberry-pngtree.png"],
+        images: ["/images/products/lemon-pngtree.png"],
       },
       title: "Limón Tahití",
       subtitle: "Cítrico de calibre uniforme para bebidas, cocina y procesos industriales.",
