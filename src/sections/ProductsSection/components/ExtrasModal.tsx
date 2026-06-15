@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Product, ProductPropertyIcon } from "@/domain/landing";
 import { ExtraImage } from "./ExtraImage";
@@ -37,11 +37,21 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
   const extraImages = extras.images?.length ? extras.images : [];
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-70 flex items-end justify-center bg-black/40 px-0 py-0 sm:items-center sm:px-5 sm:py-6">
+    <div className="fixed inset-0 z-70 flex items-end justify-center bg-black/40 px-0 py-0 sm:items-center sm:px-5 sm:py-6" onClick={onClose}>
       <div
-        className="relative w-full max-w-4xl rounded-t-2xl bg-[#fbfaf3] p-5 shadow-2xl sm:max-h-[88svh] sm:overflow-y-auto sm:rounded-2xl sm:p-7"
+        className="relative flex max-h-[calc(100svh-1.5rem)] w-full max-w-4xl flex-col overflow-hidden overscroll-contain rounded-t-2xl p-5 shadow-2xl sm:max-h-[88svh] sm:rounded-2xl sm:p-7"
         style={{ borderColor, backgroundColor: "#fbfaf3" }}
+        onClick={(event) => event.stopPropagation()}
       >
         <button
           type="button"
@@ -52,37 +62,41 @@ export function ExtrasModal({ product, palettePrimary, borderColor, extras, onCl
           <FontAwesomeIcon icon={faXmark} className="h-4 w-4" />
         </button>
 
-        <h4 className="pr-12 text-2xl font-black text-[#153c2d]">Extras de {product.title}</h4>
-        <div className="mt-6 space-y-3">
-          {extras.items.map((item) => (
-            <div
-              key={`${product.id}-${item.label}`}
-              className="grid grid-cols-[28px_1fr] gap-x-4 rounded-lg border border-[#153c2d]/10 bg-white/70 p-4"
-            >
-              <FontAwesomeIcon
-                icon={propertyIcons[item.icon]}
-                className="mt-1 h-4 w-4"
-                style={{ color: palettePrimary }}
-                aria-hidden
-              />
-              <div>
-                <p className="text-sm font-bold text-[#314a3d]">{item.label}</p>
-                <p className="text-sm text-[#1d3429]">{item.value}</p>
+        <div className="flex-1 overflow-y-auto pr-1 pt-4">
+          <h4 className="pr-12 text-2xl font-black text-[#153c2d]">Extras de {product.title}</h4>
+          <dl className="mt-6 divide-y" style={{ borderColor }}>
+            {extras.items.map((item) => (
+              <div
+                key={`${product.id}-${item.label}`}
+                className="grid grid-cols-[28px_1fr] gap-x-4 py-3 sm:grid-cols-[30px_1fr_1fr]"
+              >
+                <dt className="contents">
+                  <FontAwesomeIcon
+                    icon={propertyIcons[item.icon]}
+                    className="mt-1 h-4 w-4"
+                    style={{ color: palettePrimary }}
+                    aria-hidden
+                  />
+                  <span className="text-sm font-bold text-[#314a3d]">{item.label}</span>
+                </dt>
+                <dd className="col-start-2 text-sm font-semibold text-[#1d3429] sm:col-start-3">
+                  {item.value}
+                </dd>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </dl>
 
-        <div className="mt-7">
-          {extraImages.length === 0 ? (
-            <p className="text-sm text-[#486052]">No hay imágenes extras.</p>
-          ) : (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {extraImages.map((image) => (
-                <ExtraImage key={image} src={image} alt={product.title} onOpen={setSelectedImage} />
-              ))}
-            </div>
-          )}
+          <div className="mt-7">
+            {extraImages.length === 0 ? (
+              <p className="text-sm text-[#486052]">No hay imágenes extras.</p>
+            ) : (
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {extraImages.map((image, index) => (
+                  <ExtraImage key={`${image}-${index}`} src={image} alt={product.title} onOpen={setSelectedImage} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {selectedImage ? <ImagePreview src={selectedImage} alt={product.title} onClose={() => setSelectedImage(null)} /> : null}

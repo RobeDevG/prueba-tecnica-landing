@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faBoxOpen,
@@ -17,6 +15,7 @@ import type { Product, ProductPropertyIcon } from "@/domain/landing";
 import { useImagePalette } from "@/hooks/useImagePalette";
 import { hexToRgba } from "@/services/palette.service";
 import { ProductActions } from "./actions/Actions";
+import { ProductImageCarousel } from "./ProductImageCarousel";
 
 export interface ProductCardProps {
 	product: Product;
@@ -123,45 +122,6 @@ export function ProductCard({ product, index, even, whatsappUrl }: ProductCardPr
 				<ProductImageCarousel images={productImages} alt={product.title} />
 			</motion.div>
 		</motion.article>
-	);
-}
-
-function ProductImageCarousel({ images, alt }: { images: string[]; alt: string }) {
-	const [activeIndex, setActiveIndex] = useState(0);
-
-	useEffect(() => {
-		if (images.length < 2) {
-			return;
-		}
-
-		const intervalId = window.setInterval(() => {
-			setActiveIndex((index) => (index + 1) % images.length);
-		}, 4200);
-
-		return () => window.clearInterval(intervalId);
-	}, [images.length]);
-
-	return (
-		<div className="relative aspect-4/3 w-full max-w-140">
-			<AnimatePresence initial={false}>
-				<motion.div
-					key={images[activeIndex]}
-					className="absolute inset-0"
-					initial={{ opacity: 0, scale: 1.035 }}
-					animate={{ opacity: 1, scale: 1 }}
-					exit={{ opacity: 0, scale: 1.02 }}
-					transition={{ duration: 0.9, ease: "easeOut" }}
-				>
-					<Image
-						src={images[activeIndex]}
-						alt={alt}
-						fill
-						sizes="(max-width: 768px) 90vw, 42vw"
-						className="object-contain"
-					/>
-				</motion.div>
-			</AnimatePresence>
-		</div>
 	);
 }
 
