@@ -18,7 +18,7 @@ export function ExtraImage({ src, alt, onOpen }: ExtraImageProps) {
       onClick={() => onOpen(src)}
       className="overflow-hidden rounded-xl border border-[#153c2d]/10 bg-white/70"
     >
-      <div className="relative aspect-[4/3] w-full">
+      <div className="relative aspect-4/3 w-full">
         {!isLoaded ? <div className="absolute inset-0 animate-pulse bg-black/5" /> : null}
         <Image
           src={src}

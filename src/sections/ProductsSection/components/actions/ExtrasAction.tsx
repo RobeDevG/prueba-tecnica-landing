@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ExtrasModal } from "./ExtrasModal";
+import { ExtrasModal } from "../ExtrasModal";
 import type { Product } from "@/domain/landing";
 
 export interface ExtrasActionProps {

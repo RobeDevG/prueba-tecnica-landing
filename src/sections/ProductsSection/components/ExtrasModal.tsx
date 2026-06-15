@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Product, ProductPropertyIcon } from "@/domain/landing";
 import { ExtraImage } from "./ExtraImage";
-import { ImagePreview } from "./ImagePreview";
+import { ImagePreview } from "./actions/ImagePreview";
 import {
   faBoxOpen,
   faCalendarDays,

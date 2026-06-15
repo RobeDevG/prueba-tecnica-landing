@@ -56,10 +56,10 @@ export function Hero({ title, subtitle, images, whatsappUrl }: HeroProps) {
               Contactar
             </a>
             <a
-              href="#contacto"
+              href="#productos"
               className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md border border-[#153c2d]/22 bg-white/72 px-6 text-sm font-bold text-[#153c2d] backdrop-blur transition hover:border-[#b93838]/55 hover:text-[#b93838] focus-visible:ring-2 focus-visible:ring-[#b93838] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fbfaf3]"
             >
-              Contactar
+              Ver Productos
             </a>
           </div>
         </motion.div>

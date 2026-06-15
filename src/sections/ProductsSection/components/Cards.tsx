@@ -39,8 +39,6 @@ export function ProductCard({ product, index, even, whatsappUrl }: ProductCardPr
 	const palette = useImagePalette(productImages[0]);
 	const background = hexToRgba(palette.primary, 0.08);
 	const borderColor = hexToRgba(palette.primary, 0.16);
-	const detailsUrl = product.detailsUrl ?? "#";
-	const extras = product.extras;
 
 	return (
 		<motion.article
@@ -144,7 +142,7 @@ function ProductImageCarousel({ images, alt }: { images: string[]; alt: string }
 	}, [images.length]);
 
 	return (
-		<div className="relative aspect-[4/3] w-full max-w-140">
+		<div className="relative aspect-4/3 w-full max-w-140">
 			<AnimatePresence initial={false}>
 				<motion.div
 					key={images[activeIndex]}
