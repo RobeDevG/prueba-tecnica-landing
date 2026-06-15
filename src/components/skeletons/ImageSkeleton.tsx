@@ -16,12 +16,6 @@ export function ImageSkeleton({ variant = "frame", className = "" }: ImageSkelet
       <div className="flex flex-1 items-center justify-center rounded-2xl bg-black/5">
         <FontAwesomeIcon icon={faImage} className="h-11 w-11 text-black/20" aria-hidden />
       </div>
-      <div className="space-y-2">
-        <div className="h-2.5 w-36 rounded-full bg-black/5" />
-        <div className="h-2 w-full rounded-full bg-black/5" />
-        <div className="h-2 w-11/12 rounded-full bg-black/5" />
-        <div className="h-2 w-10/12 rounded-full bg-black/5" />
-      </div>
       <span className="sr-only">Loading...</span>
     </div>
   );
